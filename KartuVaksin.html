@@ -3,15 +3,14 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-      <title>Kartu Vaksinasi</title>
-		
-      <link rel="shortcut icon" href="https://pcare.bpjs-kesehatan.go.id/vaksin/images/favicon.ico" type="image/x-icon" />
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+		<title>Kartu Vaksinasi</title>
+
+		<link rel="shortcut icon" href="https://pcare.bpjs-kesehatan.go.id/vaksin/images/favicon.ico" type="image/x-icon" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 		<link href="css/style.css" rel="stylesheet" />
-
 	</head>
 
 	<body class="login-page pace-done" style="height: auto; min-height: 100%">
@@ -21,6 +20,7 @@
 			</div>
 			<div class="pace-activity"></div>
 		</div>
+
 		<div class="container-fluid">
 			<div class="row" id="formCek">
 				<div class="login-box">
@@ -31,35 +31,19 @@
 							<hr />
 							<h4>Halo IRHAM , Lengkapi Captha untuk lanjut</h4>
 						</div>
-						<div class="box-body">
-							<div class="row">
-								<div class="col-md-12 col-sm-12 col-xs-12" id="captchaContainer">
-									<div class="BDC_CaptchaDiv" id="AppCaptcha_CaptchaDiv" style="width: 310px !important; height: 90px !important">
-										<div class="BDC_CaptchaImageDiv" id="AppCaptcha_CaptchaImageDiv" style="width: 280px !important; height: 90px !important">
-											<div class="BDC_CaptchaImageDiv" style="width: 280px; height: 80px">
-												<img class="BDC_CaptchaImage" id="AppCaptcha_CaptchaImage" src="images/captcha/1.jpg" alt="Retype the CAPTCHA code from the image" style="" />
-											</div>
-										</div>
-
-										<div class="BDC_CaptchaIconsDiv" id="AppCaptcha_CaptchaIconsDiv" style="width: 24px !important">
-											<a class="BDC_ReloadLink" id="AppCaptcha_ReloadLink" href="#" title="Change the CAPTCHA code" style="display: inline-block !important"></a>
-												<img class="BDC_ReloadIcon" id="AppCaptcha_ReloadIcon" src="images/reload.gif" alt="Change the CAPTCHA code"
-											/></a>
-											<a class="BDC_SoundLink" id="AppCaptcha_SoundLink" href="images/sound.gif" title="Speak the CAPTCHA code" rel="nofollow"
-												>
-                                    <img class="BDC_SoundIcon" id="AppCaptcha_SoundIcon" src="images/sound.gif" alt="Speak the CAPTCHA code" /></a
-											>
-										
-										</div>
-										
+						<div>
+							<div style="width: 100%; margin-bottom: 10px">
+								<div style="display: flex; width: 100%; margin-bottom: 10px">
+									<img style="flex-grow: 1;" id="AppCaptcha_CaptchaImage" src="images/captcha/1.jpg" alt="Retype the CAPTCHA code from the image" />
+									<div style="margin-left: 5px; width: 24px !important">
+										<img style="margin: 2px;" id="AppCaptcha_ReloadIcon" src="images/reload.gif" alt="Change the CAPTCHA code" />
+										<img style="margin: 2px; margin-top: 5px;" id="AppCaptcha_SoundIcon" src="images/sound.gif" alt="Speak the CAPTCHA code" />
 									</div>
-
-									<input id="CaptchaInputText" name="CaptchaInputText" type="text" value="" autocomplete="off" style="text-transform: uppercase" />
 								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-12 col-sm-12 col-xs-12" style="height: 10px"></div>
+									<div style="width: 100%;">
+										<input id="CaptchaInputText" name="CaptchaInputText" type="text" value="" autocomplete="off" style="text-transform: uppercase"/>
+									</div>
+								</div>
 							</div>
 
 							<div class="form-group has-feedback">
@@ -85,78 +69,75 @@
 								</div>
 								<div class="col-md-3 col-sm-3 col-xs-3"></div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-      <script>
+		<script>
+			const inputNIK = document.getElementById("nik")
+			const inputCaptha = document.getElementById("CaptchaInputText")
+			const imageCaptha = document.getElementById("AppCaptcha_CaptchaImage")
+			const btReloadCaptha = document.getElementById("AppCaptcha_ReloadIcon")
 
-         const inputNIK = document.getElementById('nik')
-         const inputCaptha = document.getElementById('CaptchaInputText')
-         const imageCaptha = document.getElementById('AppCaptcha_CaptchaImage')
-         const btReloadCaptha = document.getElementById('AppCaptcha_ReloadIcon')
+			const btnCek = document.getElementById("btnCek")
 
-         const btnCek = document.getElementById('btnCek')
+			var nomor = 1
 
-         var nomor = 1;
+			btReloadCaptha.addEventListener("click", (e) => {
+				getRandomCaptcha()
+			})
 
-         btReloadCaptha.addEventListener('click', (e)=>{
-            getRandomCaptcha()
-         })
+			btnCek.addEventListener("click", (e) => {
+				checkInput()
+			})
 
-         btnCek.addEventListener('click', (e)=>{
-            checkInput()
-         })
+			function getRandomCaptcha() {
+				nomor = Math.floor(Math.random() * 10)
+				imageCaptha.src = "images/captcha/" + nomor + ".jpg"
+			}
 
-         function getRandomCaptcha(){
-            nomor = Math.floor(Math.random() * 10)
-            imageCaptha.src = "images/captcha/"+nomor+".jpg"
-         }
+			function checkInput() {
+				var captcha = "AS9JV"
+				switch (nomor) {
+					case 1:
+						captcha = "AS9JV"
+						break
+					case 2:
+						captcha = "683XM"
+						break
+					case 3:
+						captcha = "X39HX"
+						break
+					case 4:
+						captcha = "X4HWC"
+						break
+					case 5:
+						captcha = "W3YS5"
+						break
+					case 6:
+						captcha = "KN6PK"
+						break
+					case 7:
+						captcha = "CU5TC"
+						break
+					case 8:
+						captcha = "RVSUJ"
+						break
+					case 9:
+						captcha = "WH8SV"
+						break
+				}
 
-         function checkInput(){
-            var captcha = "AS9JV"
-            switch(nomor){
-               case 1:
-                  captcha = "AS9JV"
-                  break
-                  case 2:
-                  captcha = "683XM"
-                  break
-                  case 3:
-                  captcha = "X39HX"
-                  break
-                  case 4:
-                  captcha = "X4HWC"
-                  break
-                  case 5:
-                  captcha = "W3YS5"
-                  break
-                  case 6:
-                  captcha = "KN6PK"
-                  break
-                  case 7:
-                  captcha = "CU5TC"
-                  break
-                  case 8:
-                  captcha = "RVSUJ"
-                  break
-                  case 9:
-                  captcha = "WH8SV"
-                  break
-            }
-
-            if(inputCaptha.value == captcha){
-               if(inputNIK.value == "1"){
-                  console.log('berhasil')
-               }
-            }else{
-               getRandomCaptcha()
-               inputCaptha.innerText = ""
-            }
-         }
-
-      </script>
+				if (inputCaptha.value == captcha) {
+					if (inputNIK.value == "1") {
+						console.log("berhasil")
+					}
+				} else {
+					getRandomCaptcha()
+					inputCaptha.innerText = ""
+				}
+			}
+		</script>
 	</body>
 </html>
