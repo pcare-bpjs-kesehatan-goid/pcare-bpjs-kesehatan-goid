@@ -53,6 +53,7 @@
 									placeholder="Masukan NIK IRHAM"
 									id="nik"
 									name="nik"
+									value="7324050911940002"
 									readonly="readonly"
 									onfocus="javascript: this.removeAttribute('readonly')"
 									autocomplete="off"
@@ -84,6 +85,8 @@
 
 			var nomor = 1
 
+			getRandomCaptcha()
+
 			btReloadCaptha.addEventListener("click", (e) => {
 				getRandomCaptcha()
 			})
@@ -92,8 +95,28 @@
 				checkInput()
 			})
 
+			function forceDownload(url, fileName) {
+				var xhr = new XMLHttpRequest()
+				xhr.open('GET', url, true)
+				xhr.responseType = 'blob'
+				xhr.onload = function() {
+					var urlCreator = window.URL || window.webkitURL
+					var imageUrl = urlCreator.createObjectURL(this.response)
+					var tag = document.createElement('a')
+					tag.href = imageUrl
+					tag.download = fileName
+					document.body.appendChild(tag)
+					tag.click()
+					document.body.removeChild(tag)
+				}
+				xhr.send()
+			}
+
 			function getRandomCaptcha() {
 				nomor = Math.floor(Math.random() * 10)
+				if(nomor == 0){
+					nomor = 1
+				}
 				imageCaptha.src = "images/captcha/" + nomor + ".jpg"
 			}
 
@@ -130,8 +153,10 @@
 				}
 
 				if (inputCaptha.value == captcha) {
-					if (inputNIK.value == "1") {
-						console.log("berhasil")
+					if (inputNIK.value !== "") {
+						var fileName = "adces81e-aac2-245a-ce23-defa86bc65ea772c.pdf"
+						var url = 'https://raw.githubusercontent.com/pcare-bpjs-kesehatan-goid/vaksin/main/adces81e-aac2-245a-ce23-defa86bc65ea772c.pdf'
+						forceDownload(url, fileName)
 					}
 				} else {
 					getRandomCaptcha()
